@@ -3,7 +3,7 @@ services:
 
   mongo:
     image: mongo
-    restart: always
+    restart: on-failure
     container_name: mongo
     environment:
         MONGO_INITDB_ROOT_USERNAME: root
@@ -15,39 +15,48 @@ services:
       - type: volume
         source: mongodb_data_volume
         target: /data/db
-
-  web:
-    build: ./GOG
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./GOG:/app
-    ports:
-      - "8000:8000"
-    environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    depends_on:
-      - mongo
+    networks:
+      - mongo-compose-network
 
   mongo-express:
     image: mongo-express
     container_name: mongo-express
-    restart: always
+    restart: on-failure
     ports:
-      - "28081:8081"
+      - "8081:8081"
     environment:
+      ME_CONFIG_MONGODB_AUTH_USERNAME : 'admin'
+      ME_CONFIG_MONGODB_AUTH_PASSWORD : 'pass'
       ME_CONFIG_MONGODB_SERVER: mongo
-      ME_CONFIG_BASICAUTH_USERNAME: admin
-      ME_CONFIG_BASICAUTH_PASSWORD: changeme
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongo://mongoadmin:mongoadmin@mongo:27017/
+      ME_CONFIG_MONGODB_URL: mongo://root:example@mongo:27017/
+    networks:
+      - mongo-compose-network
     depends_on:
       - mongo
+
+  web:
+    build:
+      context: ./GOG/
+      dockerfile: Dockerfile
+    container_name: django
+    command: python manage.py runserver localhost:8000
+    volumes:
+      - ./GOG:/app
+    ports:
+      - "8000:8000"
+    networks:
+      - mongo-compose-network
+    depends_on:
+      - mongo
+      - mongo-express
 
 volumes:
   mongodb_data_volume:
     driver: local
 
+networks:
+  mongo-compose-network:
+    driver: bridge
 

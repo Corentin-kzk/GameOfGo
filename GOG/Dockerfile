@@ -13,6 +13,7 @@ RUN apt-get update \
     gcc \
     libc-dev \
     bash \
+    vim \
     && pip3 install --upgrade pip
 
 
@@ -25,6 +26,6 @@ WORKDIR /app
 
 COPY requirements.txt /app/
 COPY . /app/
+COPY .env /app/
 
 RUN pip3 --no-cache-dir install -r requirements.txt
-
