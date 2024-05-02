@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15dd1c56-2976-428c-9680-f6235c5c2b17" name="Changes" comment="feat(django/mongodb): add dockerize django + mongo db">
-      <change afterPath="$PROJECT_DIR$/GOG/.env" afterDir="false" />
+    <list default="true" id="15dd1c56-2976-428c-9680-f6235c5c2b17" name="Changes" comment="feat(django/mongodb): add README.MD">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GOG/.env.exemple" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GOG/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/GOG/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GOG/.env" beforeDir="false" afterPath="$PROJECT_DIR$/GOG/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GOG/GOG/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GOG/GOG/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GOG/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GOG/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,6 +27,9 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -46,7 +49,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "infra/add__django__with__djongo__and__mongodb",
-    "last_opened_file_path": "/Users/corentinkozka/Documents/Perso/Ecole_EEM/data-engineer-em-01/TP/GameOfGo",
+    "last_opened_file_path": "/Users/corentinkozka/Documents/Perso/Ecole_EEM/data-engineer-em-01/TP/GameOfGo/GOG",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -56,6 +59,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/GOG" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="GameOfGo" type="Python.DjangoServer" factoryName="Django server">
       <module name="GameOfGo" />
@@ -104,7 +112,8 @@
       <workItem from="1713880724624" duration="213000" />
       <workItem from="1714383831156" duration="415000" />
       <workItem from="1714384573109" duration="1205000" />
-      <workItem from="1714468185961" duration="10040000" />
+      <workItem from="1714468185961" duration="11552000" />
+      <workItem from="1714636775660" duration="1272000" />
     </task>
     <task id="LOCAL-00001" summary="feat(django/mongodb): add dockerize django + mongo db">
       <option name="closed" value="true" />
@@ -114,7 +123,23 @@
       <option name="project" value="LOCAL" />
       <updated>1713533273859</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat(django/mongodb): refactor docker-compose.yml &amp;&amp; Dockerfile">
+      <option name="closed" value="true" />
+      <created>1714490119551</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714490119551</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat(django/mongodb): add README.MD">
+      <option name="closed" value="true" />
+      <created>1714492888156</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1714492888156</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,6 +159,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="feat(django/mongodb): add dockerize django + mongo db" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(django/mongodb): add dockerize django + mongo db" />
+    <MESSAGE value="feat(django/mongodb): refactor docker-compose.yml &amp;&amp; Dockerfile" />
+    <MESSAGE value="feat(django/mongodb): add README.MD" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(django/mongodb): add README.MD" />
   </component>
 </project>
