@@ -75,14 +75,16 @@ WSGI_APPLICATION = "GOG.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+print(os.environ.get('DB_PORT'))
+print(os.environ.get('DB_USERNAME'))
+print(os.environ.get('DB_PASSWORD'))
 DATABASES = {
         'default': {
             'ENGINE': 'djongo',
             'NAME': 'gog-db',
             'ENFORCE_SCHEMA': False,
             'CLIENT': {
-                'host': 'mongodb://root:example@mongo:27017/'
+                'host': f"mongodb://{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@mongo:{os.getenv('DB_PORT')}/"
             }
         }
 }
