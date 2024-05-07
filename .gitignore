@@ -1,0 +1,4 @@
+./GOG/.env
+.idea
+.vscode
+__pycache__/
