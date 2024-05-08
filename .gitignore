@@ -1,3 +1,5 @@
 ./GOG/.env
 .idea
 .vscode
+__pycache__/
+.env
