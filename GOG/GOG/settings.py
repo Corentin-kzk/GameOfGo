@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-ny$bms2i#qotl39$o$(+8epz4e9q%3p#k9%jc4c-$0(9=ol*&e"
+SECRET_KEY = os.getenv('SALT')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,9 +75,7 @@ WSGI_APPLICATION = "GOG.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-print(os.environ.get('DB_PORT'))
-print(os.environ.get('DB_USERNAME'))
-print(os.environ.get('DB_PASSWORD'))
+
 DATABASES = {
         'default': {
             'ENGINE': 'djongo',
