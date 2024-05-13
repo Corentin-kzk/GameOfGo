@@ -5,20 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15dd1c56-2976-428c-9680-f6235c5c2b17" name="Changes" comment="feat(django/mongodb): add .env.exemple + fix docker-compose">
-      <change afterPath="$PROJECT_DIR$/GOG/users/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GOG/users/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GOG/users/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GOG/users/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GOG/users/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GOG/users/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GOG/users/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GOG/users/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GOG/users/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/public/logo192.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/public/logo512.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/public/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/App.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/reportWebVitals.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/setupTests.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GOG/.env" beforeDir="false" afterPath="$PROJECT_DIR$/GOG/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GOG/GOG/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GOG/GOG/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GOG/GOG/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/GOG/GOG/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GOG/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GOG/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +39,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -63,7 +71,7 @@
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "infra/add__django__with__djongo__and__mongodb",
+    "git-widget-placeholder": "develop",
     "last_opened_file_path": "/Users/corentinkozka/Documents/Perso/Ecole_EEM/data-engineer-em-01/TP/GameOfGo/GOG/users",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",

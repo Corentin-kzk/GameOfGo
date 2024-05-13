@@ -36,11 +36,11 @@ services:
     depends_on:
       - mongo
 
-  web:
+  backend:
     build:
       context: ./GOG/
       dockerfile: Dockerfile
-    container_name: django
+    container_name: django-backend
     command: python manage.py runserver 0.0.0.0:8000
     env_file:
       - ./GOG/.env
@@ -53,6 +53,14 @@ services:
     depends_on:
       - mongo
       - mongo-express
+
+  frontend:
+    build:
+      context: ./front-end/
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
 
 volumes:
   mongodb_data_volume:
