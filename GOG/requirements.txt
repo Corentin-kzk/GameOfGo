@@ -1,2 +1,4 @@
-djongo5
-pytz
+djangorestframework
+django-rest-framework-mongoengine
+pymongo
+mongoengine

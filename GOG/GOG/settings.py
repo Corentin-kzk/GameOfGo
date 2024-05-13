@@ -26,20 +26,20 @@ SECRET_KEY = os.getenv('SALT')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    "GOG",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'djongo',
+    'rest_framework',
+    "users.apps.UsersConfig"
 ]
 
 MIDDLEWARE = [
@@ -78,14 +78,14 @@ WSGI_APPLICATION = "GOG.wsgi.application"
 
 DATABASES = {
         'default': {
-            'ENGINE': 'djongo',
-            'NAME': 'gog-db',
-            'ENFORCE_SCHEMA': False,
-            'CLIENT': {
-                'host': f"mongodb://{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@mongo:{os.getenv('DB_PORT')}/"
-            }
+            'ENGINE': '',
         }
 }
+
+# Configure Mongo as database. Replace below values as required
+from mongoengine import connect
+
+connect(os.getenv("DB_NAME"), host=os.getenv("DB_HOST"), port=int(os.getenv('DB_PORT')))
 
 
 # Password validation
