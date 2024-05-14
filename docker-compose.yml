@@ -1,40 +1,36 @@
 version: '3.3'
 services:
 
-  mongo:
-    image: mongo
+  db:
+    image: postgres
     restart: on-failure
-    container_name: mongo
+    container_name: postgres-db
     environment:
-        MONGO_INITDB_ROOT_USERNAME: root
-        MONGO_INITDB_ROOT_PASSWORD: example
-        MONGO_INITDB_DATABASE: gog-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=gog-db
     ports:
-      - "27017:27017"
+      - "5432:5432"
     volumes:
       - type: volume
-        source: mongodb_data_volume
-        target: /data/db
+        source: postgres_data_volume
+        target: /data/db/postgres
     networks:
-      - mongo-compose-network
+      - postgres-compose-network
 
-  mongo-express:
-    image: mongo-express
-    container_name: mongo-express
-    restart: on-failure
+  adminer:
+    image: adminer
+    restart: always
     ports:
-      - "8081:8081"
+      - 8080:8080
     environment:
-      ME_CONFIG_MONGODB_AUTH_USERNAME : 'admin'
-      ME_CONFIG_MONGODB_AUTH_PASSWORD : 'pass'
-      ME_CONFIG_MONGODB_SERVER: mongo
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongo://root:example@mongo:27017/
+      - ADMINER_DEFAULT_DB_DRIVER=pgsql
+      - ADMINER_DEFAULT_DB_HOST=db
+      - ADMINER_DEFAULT_DB_NAME=gog-db
     networks:
-      - mongo-compose-network
+      - postgres-compose-network
     depends_on:
-      - mongo
+      - db
 
   backend:
     build:
@@ -44,29 +40,33 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     env_file:
       - ./GOG/.env
+    environment:
+      - DB_HOST=db
+      - DJANGO_SUPERUSER_PASSWORD=test
+      - DJANGO_SUPERUSER_EMAIL=example@example.com
+      - DJANGO_SUPERUSER_USERNAME=admin
     volumes:
       - ./GOG:/app
     ports:
       - "8000:8000"
     networks:
-      - mongo-compose-network
+      - postgres-compose-network
     depends_on:
-      - mongo
-      - mongo-express
-
-  frontend:
-    build:
-      context: ./front-end/
-      dockerfile: Dockerfile
-    container_name: frontend
-    ports:
-      - "3000:3000"
+      - db
+#
+#  frontend:
+#    build:
+#      context: ./front-end/
+#      dockerfile: Dockerfile
+#    container_name: frontend
+#    ports:
+#      - "3000:3000"
 
 volumes:
-  mongodb_data_volume:
+  postgres_data_volume:
     driver: local
 
 networks:
-  mongo-compose-network:
+  postgres-compose-network:
     driver: bridge
 
