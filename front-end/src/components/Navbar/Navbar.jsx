@@ -5,7 +5,11 @@ const Navbar = () => {
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/about">Profile</a></li>
+                <li><a href="/play">Play</a></li>
+                <li>
+                    <button><a href="/login">Sign in</a></button>
+                    <button><a href="/signup">Sign up</a></button>
+                </li>
             </ul>
         </nav>
     );
