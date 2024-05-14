@@ -29,3 +29,22 @@ COPY . /app/
 COPY .env /app/
 
 RUN pip3 --no-cache-dir install -r requirements.txt
+
+#RUN python manage.py makemigrations
+##RUN python manage.py migrate
+##RUN python manage.py createcachetable
+#
+#RUN if [ -n "$DJANGO_SUPERUSER_USERNAME" ]; then \
+#        python manage.py createsuperuser \
+#        --noinput \
+#        --username "admin" \
+#        --email "admin@admin.fr"; \
+#    fi
+#
+## Définir la commande d'entrée pour le conteneur
+#ENTRYPOINT ["sh", "-c"]
+#
+## La commande par défaut à exécuter lorsque le conteneur démarre
+#CMD ["exec $@"]
+#
+
