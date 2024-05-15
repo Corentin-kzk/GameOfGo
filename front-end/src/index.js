@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Homepage from "./pages/Home/Homepage";
 import Login from './pages/Login/Login';
+import SignUp from './pages/Login/SignUp';
 import reportWebVitals from './reportWebVitals';
 import Navbar from './components/Navbar/Navbar';
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
+const theme = createTheme(
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -26,12 +30,18 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
+  {
+    path: "/signup",
+    element: <SignUp />,
+  },
 ]);
 
 root.render(
   <React.StrictMode>
-    {router.element === <Login /> ? null : <Navbar />}
+     <ThemeProvider theme={theme}>
+    {router.element === <Login />}
     <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );
 
