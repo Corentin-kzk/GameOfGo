@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Homepage from "./pages/Home/Homepage";
 import Login from './pages/Login/Login';
+import Gamepage from './pages/Game/Gamepage';
 import reportWebVitals from './reportWebVitals';
 import Navbar from './components/Navbar/Navbar';
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -25,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/play",
+    element: <Gamepage />,
   },
 ]);
 
