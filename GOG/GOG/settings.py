@@ -40,8 +40,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'rest_framework',
     'drf_yasg',
-    'GOG'
+    'GOG',
+    "authapp",
+    'rest_framework.authtoken',
 ]
+
+APPEND_SLASH = False
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
