@@ -13,7 +13,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const defaultTheme = createTheme();
 
-// Define Yup validation schema
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('First Name is required'),
   lastName: Yup.string().required('Last Name is required'),
