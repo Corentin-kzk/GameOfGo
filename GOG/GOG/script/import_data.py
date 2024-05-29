@@ -90,19 +90,3 @@ def import_data_from_remote(url, token, difficulty):
         print(f"Erreur de requête HTTP: {response.status_code}")
 
     return data_dict  # Retourne le dictionnaire contenant les données JSON
-
-
-# if __name__ == "__main__":
-#     urls = ["1a. Tsumego Beginner", "1b. Tsumego Intermediate", "1c. Tsumego Advanced"]
-#     auth = HTTPBasicAuth('username', "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")
-#
-#     dicts = {}
-#     for url in urls:
-#         difficulty = url.split(" ")[-1]
-#         # URL de l'API GitHub pour lister le contenu du répertoire racine
-#         remote_dir_url = f"https://api.github.com/repos/sanderland/tsumego/contents/problems/{url}"
-#         dicts[difficulty] = import_data_from_remote(remote_dir_url, auth, difficulty)
-#
-#     with open('donnees.json', 'w') as fichier:
-#         # Écrire les données dans le fichier en format JSON
-#         json.dump(dicts, fichier, indent=4, ensure_ascii=False)
