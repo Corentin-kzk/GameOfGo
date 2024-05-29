@@ -1,3 +1,5 @@
+import os
+
 from django.db.models.signals import post_migrate
 from django.dispatch import receiver
 from .script.fill_difficulties import fill_difficulties
@@ -10,7 +12,7 @@ from tsumego.models import Difficulty
 def on_post_migrate(sender, **kwargs):
     fill_difficulties()
     urls = ["1a. Tsumego Beginner", "1b. Tsumego Intermediate", "1c. Tsumego Advanced"]
-    auth = HTTPBasicAuth('username', "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")
+    auth = HTTPBasicAuth('username', os.getenv('GITHUB_ID'))
     difficulties = {
         "Beginner": Difficulty.objects.get(level="Beginner"),
         "Intermediate": Difficulty.objects.get(level="Intermediate"),
