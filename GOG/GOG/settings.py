@@ -39,10 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'rest_framework',
+    'rest_framework.authtoken',
+    'authapp',
     'drf_yasg',
     'GOG',
-    "authapp",
-    'rest_framework.authtoken',
+    'tsumego'
 ]
 
 APPEND_SLASH = False
@@ -53,6 +54,11 @@ SWAGGER_SETTINGS = {
             'type': 'basic'
         }
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
 }
 
 # REST_FRAMEWORK = {
@@ -144,3 +150,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+NAME= "GOG"
