@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15dd1c56-2976-428c-9680-f6235c5c2b17" name="Changes" comment="feat(auth): add tsumego + basic route tsumego">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GOG/.env" beforeDir="false" afterPath="$PROJECT_DIR$/GOG/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GOG/.env.exemple" beforeDir="false" afterPath="$PROJECT_DIR$/GOG/.env.exemple" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GOG/GOG/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/GOG/GOG/signals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GOG/GOG/script/import_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/GOG/GOG/script/import_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +126,7 @@
       <workItem from="1715006679260" duration="904000" />
       <workItem from="1715007602565" duration="21000" />
       <workItem from="1716801698605" duration="5589000" />
-      <workItem from="1717008826005" duration="3054000" />
+      <workItem from="1717008826005" duration="3131000" />
     </task>
     <task id="LOCAL-00001" summary="feat(django/mongodb): add dockerize django + mongo db">
       <option name="closed" value="true" />
@@ -179,7 +176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717013231082</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="feat(auth): add tsumego + basic route tsumego">
+      <option name="closed" value="true" />
+      <created>1717013443926</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1717013443926</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
