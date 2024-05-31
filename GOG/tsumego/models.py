@@ -1,8 +1,4 @@
-import datetime
-
 from django.db import models
-import time
-
 
 class Difficulty(models.Model):
     level = models.CharField(max_length=50, unique=True)
@@ -26,8 +22,8 @@ class Data(models.Model):
             self.slug = self.slugify_name(self.name, self.difficulty)
         super().save(*args, **kwargs)
 
-    def slugify_name(self, name, difficulty):
+    def slugify_name(self, name, difficulty, asset=''):
         prob_num = name.lower().replace('prob', '').strip()
         prob_num = prob_num.zfill(3)  # Formate le numéro du problème avec trois chiffres
         difficulty_level = difficulty.level.lower().replace(' ', '-')[:3]
-        return f"{prob_num}-{difficulty_level}"
+        return f"{prob_num}-{difficulty_level}-{asset}"

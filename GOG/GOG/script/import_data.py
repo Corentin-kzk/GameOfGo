@@ -45,8 +45,13 @@ def format_tsumego(data):
 
     return formatted_data
 
+
+dir_name = ''
+
+
 def import_data_from_remote(url, token, difficulty):
     data_dict = {}  # Initialisation du dictionnaire pour stocker les données JSON
+    global dir_name
     # Récupérez le contenu du répertoire à partir de l'API GitHub avec authentification
     response = requests.get(url, auth=token)
     if response.status_code == 200:
@@ -57,6 +62,7 @@ def import_data_from_remote(url, token, difficulty):
                 # Si l'élément est un répertoire, récursivement explorez son contenu
                 if item.get("type") == "dir":
                     subdir_url = item.get("url")
+                    dir_name = "".join(item.get("name").split(' ')[:2])
                     subdir_data_dict = import_data_from_remote(subdir_url, token, difficulty)
                     data_dict.update(
                         subdir_data_dict)  # Mettez à jour le dictionnaire avec les données du sous-répertoire
@@ -70,16 +76,16 @@ def import_data_from_remote(url, token, difficulty):
                             file_name = item.get("name").removesuffix(".json")
                             data_dict[
                                 file_name] = json_data  # Ajoutez les données JSON au dictionnaire avec le nom du fichier comme clé
-                            slug_candidate = Data().slugify_name(file_name, difficulty)
+                            slug_candidate = Data().slugify_name(file_name, difficulty, asset=dir_name)
                             if not Data.objects.filter(slug=slug_candidate).exists():
                                 Data.objects.create(name=file_name,
+                                                    slug=slug_candidate,
                                                     difficulty=difficulty,
                                                     black_stones=json_data["AB"],
                                                     white_stones=json_data["AW"],
                                                     board_size=json_data["SZ"],
                                                     comment=json_data["C"],
                                                     solution=json_data["SOL"])
-                                # print(f"Le tsumego '{slug_candidate}'avec la difficulté {difficulty} ajoutée avec succès.")
                             else:
                                 print(f"Le tsumego '{slug_candidate}' avec la difficulté {difficulty} existe déjà.")
                         except json.JSONDecodeError as e:
