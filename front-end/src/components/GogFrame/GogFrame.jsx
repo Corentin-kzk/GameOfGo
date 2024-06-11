@@ -1,15 +1,26 @@
 import './style.css';
 import initBoard, { getVertex } from '../../services/board/initBoard';
-import { whiteMove } from '../../services/board/playersActions';
+import { whiteMove, blackMove } from '../../services/board/playersActions';
 import { useState } from 'react';
+import { loadProblem, problemsDataExample as data, resolveProblem } from '../../services/board/solving';
 
 const GogFrame = () => {
-    const [board, setBoard] = useState(initBoard());
+    
+    const [board, setBoard] = useState(loadProblem(data.SZ, data.AB, data.AW));
 
     function handleBoard(board, vertex) {
         const Board = require('@sabaki/go-board')
+        if (data.C.includes('Black')) {
+            const table = blackMove(board, vertex);
+            setBoard(new Board(table.signMap));
+        } else {
+            const table = whiteMove(board, vertex);
+            setBoard(new Board(table.signMap));
+        }
         const table = whiteMove(board, vertex);
         setBoard(new Board(table.signMap));
+
+        resolveProblem(data.SOL, vertex);
     }
 
     return (
