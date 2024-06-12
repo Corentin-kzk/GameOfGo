@@ -28,6 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+)
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -43,7 +48,8 @@ INSTALLED_APPS = [
     'authapp',
     'drf_yasg',
     'GOG',
-    'tsumego'
+    'tsumego',
+    'corsheaders'
 ]
 
 APPEND_SLASH = False
@@ -65,6 +71,7 @@ REST_FRAMEWORK = {
 #    'DEFAULT_PERMISSION_CLASSES': ( 'rest_framework.permissions.IsAdminUser', ),
 # }
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
