@@ -29,7 +29,7 @@ def format_tsumego(data):
             move = solution[1]
             if move:
                 x, y = convert_coords(move)
-                converted_solutions.append([solution[0], (x, y), solution[2], solution[3]])
+                converted_solutions.append([solution[0], [x, y]])
             else:
                 converted_solutions.append(solution)
         return converted_solutions
