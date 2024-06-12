@@ -6,3 +6,8 @@ export function whiteMove(board, vertex) {
     board.set(vertex, 1);
     return board
 }
+
+export function blackMove(board, vertex) {
+    board.set(vertex, -1);
+    return board
+}

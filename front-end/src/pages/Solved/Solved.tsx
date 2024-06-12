@@ -1,15 +1,15 @@
 import React from 'react';
 
-function Homepage() {
+const Solved = () => {
     return (
         <>
             <div>
-                <h1>Welcome to the Game of Go!</h1>
+                <h1>Congrat! You solved the Puzzle</h1>
                 <p>Instructions: [Add instructions here]</p>
-                <a href="/play"><button>Start Game</button></a>
+                <button>Start another Game</button>
             </div>
         </>
     );
 }
 
-export default Homepage;
+export default Solved;
