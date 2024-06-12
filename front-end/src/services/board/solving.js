@@ -66,7 +66,7 @@ export function showData() {
     console.log(problemsDataExample);
 }
 
-export function loadProblem(size, blackStones, whiteStones, player) {
+export function loadProblem(size, blackStones, whiteStones) {
     const Board = require('@sabaki/go-board');
     const boardTable = new Array(size).fill(0).map(() => new Array(size).fill(0));
     let board = new Board(boardTable);
@@ -78,11 +78,10 @@ export function loadProblem(size, blackStones, whiteStones, player) {
 }
 
 export function resolveProblem(solution, vertex) {
-    console.log(solution.SOL[0][1], vertex);
-    if (solution.SOL[0][1][0] === vertex[0] && solution.SOL[0][1][1] === vertex[1]) {
-        alert(solution.SOL[0][2]);
-        window.location.href('/solved');
+    console.log(solution[0][1], vertex);
+    if (solution[0][1][0] === vertex[0] && solution[0][1][1] === vertex[1]) {
+        return true;
     } else {
-        alert('RATÉ!');
+        return false;
     }
 }

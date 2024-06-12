@@ -4,7 +4,7 @@ import './index.css';
 import Homepage from "./pages/Home/Homepage";
 import Login from './pages/Login/Login';
 import Gamepage from './pages/Game/Gamepage';
-import Solved from './pages/Solved/Solved';
+// import Solved from './pages/Solved/Solved';
 import reportWebVitals from './reportWebVitals';
 import Navbar from './components/Navbar/Navbar';
 import {
@@ -33,10 +33,10 @@ const router = createBrowserRouter([
     path: "/play",
     element: <Gamepage />,
   },
-  {
-    path: "/solved",
-    element: <Solved />,
-  },
+  // {
+  //   path: "/solved",
+  //   element: <Solved />,
+  // },
 ]);
 
 root.render(

@@ -1,5 +1,5 @@
 import './style.css';
-import initBoard, { getVertex } from '../../services/board/initBoard';
+import { getVertex } from '../../services/board/initBoard';
 import { whiteMove, blackMove } from '../../services/board/playersActions';
 import { useState } from 'react';
 import { loadProblem, problemsDataExample as data, resolveProblem } from '../../services/board/solving';
@@ -10,17 +10,15 @@ const GogFrame = () => {
 
     function handleBoard(board, vertex) {
         const Board = require('@sabaki/go-board')
-        if (data.C.includes('Black')) {
+        if (data.SOL[0][0] === 'B') {
             const table = blackMove(board, vertex);
             setBoard(new Board(table.signMap));
         } else {
             const table = whiteMove(board, vertex);
             setBoard(new Board(table.signMap));
         }
-        const table = whiteMove(board, vertex);
-        setBoard(new Board(table.signMap));
 
-        resolveProblem(data.SOL, vertex);
+        resolveProblem(data.SOL, vertex) === true ? console.log('Correct') : console.log('Incorrect');
     }
 
     return (
