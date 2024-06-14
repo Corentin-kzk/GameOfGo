@@ -3,47 +3,43 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Homepage from "./pages/Home/Homepage";
 import Login from './pages/Login/Login';
+import SignUp from './pages/Login/SignUp';
 import Gamepage from './pages/Game/Gamepage';
-// import Solved from './pages/Solved/Solved';
 import reportWebVitals from './reportWebVitals';
 import Navbar from './components/Navbar/Navbar';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from 'react-query';
 
+const queryClient = new QueryClient();
 
+const App = () => {
+  const location = useLocation();
+  const hideNavbar = location.pathname === '/login' || location.pathname === '/signup';
+
+  return (
+    <>
+      {!hideNavbar && <Navbar />}
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/test" element={<p>Test</p>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/play" element={<Gamepage />} />
+      </Routes>
+    </>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Homepage />,
-  },
-  {
-    path: "/test",
-    element: <p>Test</p>,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/play",
-    element: <Gamepage />,
-  },
-  // {
-  //   path: "/solved",
-  //   element: <Solved />,
-  // },
-]);
-
 root.render(
-  <React.StrictMode>
-    {router.element === <Login /> ? null : <Navbar />}
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>
+  </QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
