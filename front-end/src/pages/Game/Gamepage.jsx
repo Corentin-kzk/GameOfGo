@@ -1,6 +1,6 @@
 import React from 'react';
 import GogFrame from '../../components/GogFrame/GogFrame';
-import { showData } from '../../services/board/solving';
+import fetchTsumego, { showData } from '../../services/board/solving';
 
 
 const Gamepage = () => {
@@ -8,7 +8,7 @@ const Gamepage = () => {
     return (
         <div>
             <h1>Game of Go</h1>
-            <GogFrame />
+            <GogFrame tsumego={fetchTsumego()} />
         </div>
     );
 };
