@@ -10,3 +10,6 @@ class DataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Data
         fields = ['id', 'difficulty', 'black_stones', 'white_stones', 'board_size', 'comment', 'name', 'slug', 'solution']
+        extra_kwargs = {
+            "difficulty": {"required": False, "allow_null": True}
+        }
