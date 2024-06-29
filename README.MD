@@ -39,3 +39,28 @@ Pour accéder à l'interface de gestion de la base de données MongoDB via mongo
 ```
 http://localhost:8080
 ```
+
+### 4. Developpement de l'application 
+
+executer les commandes : 
+
+```bash
+ docker exec -it django-backend <command>
+```
+
+creer les migrations : 
+
+```bash
+ docker exec -it django-backend python manage.py makemigrations
+```
+
+executer les migration et les insertion des tsumego:
+```bash
+ docker exec -it django-backend python manage.py migrate
+```
+
+generer les fakes users :
+
+```bash
+ docker exec -it django-backend python manage.py create_fake_users 50
+```
