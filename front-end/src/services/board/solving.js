@@ -62,6 +62,18 @@ export const problemsDataExample = {
     ]
 };
 
+export default async function fetchTsumego(randomId = 1) {
+    await fetch(`http://localhost:8000/api/tsumego/`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.results);
+        return data.results;
+    })
+    .catch(error => console.error(error));
+}
+
+fetchTsumego();
+
 export function showData() {
     console.log(problemsDataExample);
 }
