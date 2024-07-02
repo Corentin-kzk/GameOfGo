@@ -1,0 +1,33 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    width: 100%;
+}
+
+nav ul {
+    padding: 0;
+    width: 100%;
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem;
+}
+
+nav ul :first-child {
+    display: flex;
+}
+
+a {
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    background-color: gray;
+    border-radius: 5px;
+    margin: 0 5px;
+}
+a:hover {
+    background-color: #555;
+}

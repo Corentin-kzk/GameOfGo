@@ -3,8 +3,8 @@
     flex-direction: row
 }
 .cell {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -20,6 +20,12 @@ button {
     min-width: 10px;
     min-height: 10px;
 }
+img {
+    width: 30px;
+    height: 30px;;
+
+}
+
 .cell:before {
     content: '';
     position: absolute;
