@@ -8,7 +8,7 @@ Assurez-vous d'avoir Docker et Docker Compose installés sur votre système avan
 
 ## Instructions
 
-### 1. Clonage du projet :
+### 1. Clonage du projet
 
 Clonez ce projet sur votre machine en utilisant la commande suivante :
 
@@ -16,7 +16,7 @@ Clonez ce projet sur votre machine en utilisant la commande suivante :
 git clone git@github.com:Corentin-kzk/GameOfGo.git
 ```
 
-### 2. Lancement des conteneurs Docker :
+### 2. Lancement des conteneurs Docker
 
 Accédez au répertoire racine du projet et exécutez la commande suivante pour lancer les conteneurs Docker :
 
@@ -26,7 +26,7 @@ docker compose up --remove-orphans --build -d
 
 Cela démarrera les conteneurs et exposera votre application Django sur le port 8000 et mongo-express sur le port 8081 de votre machine locale.
 
-### 3. Accès à l'application :
+### 3. Accès à l'application
 
 Ouvrez un navigateur web et accédez à l'URL suivante pour voir votre application en cours d'exécution :
 
@@ -37,5 +37,39 @@ http://localhost:8000
 Pour accéder à l'interface de gestion de la base de données MongoDB via mongo-express, utilisez l'URL suivante :
 
 ```
-http://localhost:8080
+http://localhost:8081
+```
+
+### 4. Développement de l'application
+
+Pour exécuter des commandes dans le conteneur Django, utilisez :
+
+```bash
+docker exec -it django-backend <command>
+```
+
+#### Créer les migrations
+
+```bash
+docker exec -it django-backend python manage.py makemigrations
+```
+
+#### Exécuter les migrations
+
+```bash
+docker exec -it django-backend python manage.py migrate
+```
+
+#### Générer des utilisateurs factices
+
+```bash
+docker exec -it django-backend python manage.py create_fake_users 50
+```
+
+#### Récupérer les tsumego
+
+Configurez `GITHUB_ID=""` dans les environnements.
+
+```bash
+docker exec -it django-backend python manage.py insert_tsumego
 ```
