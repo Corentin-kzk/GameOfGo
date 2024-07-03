@@ -1,6 +1,8 @@
 from rest_framework import generics
 from rest_framework.exceptions import NotFound
 from rest_framework.pagination import PageNumberPagination
+from .models import Difficulty, Data, UserTsumego
+from .serializers import DifficultySerializer, DataSerializer, GameSerializer
 from .models import Difficulty, Data
 from .serializers import DifficultySerializer, DataSerializer
 from django.db.models import Func
@@ -65,3 +67,25 @@ class DataRandomRetrieve(generics.RetrieveAPIView):
             raise NotFound("No data available")
 
         return queryset.first()
+
+
+class GameListCreate(generics.ListCreateAPIView):
+    serializer_class = GameSerializer
+
+    def get_queryset(self):
+        return UserTsumego.objects.filter(deleted_at__isnull=True)
+
+class GameRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = GameSerializer
+    def get_queryset(self):
+        return UserTsumego.objects.filter(deleted_at__isnull=True)
+
+    def perform_destroy(self, instance):
+        instance.soft_delete()
+
+class GameByUser(generics.ListAPIView):
+    serializer_class = GameSerializer
+
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        return UserTsumego.objects.filter(user_id=user_id)
