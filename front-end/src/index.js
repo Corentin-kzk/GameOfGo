@@ -20,7 +20,7 @@ const App = () => {
     <>
       {!hideNavbar && <Navbar />}
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/home" element={<Homepage />} />
         <Route path="/test" element={<p>Test</p>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
