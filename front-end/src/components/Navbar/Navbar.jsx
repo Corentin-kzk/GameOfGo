@@ -11,8 +11,8 @@ const Navbar = () => {
                 </div>
                 <div>
                     <li>
-                        <button><a href="/login">Sign in</a></button>
-                        <button><a href="/signup">Sign up</a></button>
+                        <button><a href="/login">Login</a></button>
+                        <button><a href="/signup">Signup</a></button>
                     </li>
                 </div>
             </ul>
