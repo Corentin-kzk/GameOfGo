@@ -4,7 +4,6 @@ import './index.css';
 import Homepage from "./pages/Home/Homepage";
 import Login from './pages/Login/Login';
 import SignUp from './pages/Login/SignUp';
-import SignUp from './pages/Login/SignUp';
 import Gamepage from './pages/Game/Gamepage';
 import reportWebVitals from './reportWebVitals';
 import Navbar from './components/Navbar/Navbar';
@@ -34,13 +33,6 @@ const App = () => {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <QueryClientProvider client={queryClient}>
-    <React.StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </React.StrictMode>
-  </QueryClientProvider>
   <QueryClientProvider client={queryClient}>
     <React.StrictMode>
       <BrowserRouter>
