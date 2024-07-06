@@ -2,6 +2,21 @@ import React from 'react';
 import './Navbar.css';
 
 const Navbar = () => {
+    const [auth, setAuth] = useState(true);
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleChange = (event) => {
+        setAuth(event.target.checked);
+    };
+
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     return (
         <nav>
             <ul>
