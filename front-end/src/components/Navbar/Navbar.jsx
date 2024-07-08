@@ -28,12 +28,12 @@ const Navbar = () => {
         position="fixed"
         className="app-bar"
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
-      >
-      </AppBar>
+      />
       <Drawer
         className="drawer"
         variant="permanent"
         anchor="left"
+        sx={{ width: drawerWidth, flexShrink: 0 }}
       >
         <Toolbar className='app-bar'>
           <Typography variant="h6" noWrap component="div">
@@ -42,22 +42,34 @@ const Navbar = () => {
         </Toolbar>
         <Divider />
         <List className="nav-list">
-          {[
-            { text: 'Home', icon: <HomeIcon sx={{ color: 'white' }} />,},
-            { text: 'Login', icon: <LoginIcon sx={{ color: 'white' }} /> },
-            { text: 'Signup', icon: <PersonAddIcon sx={{ color: 'white' }} /> }
-          ].map((item) => (
-            <ListItem key={item.text} disablePadding>
-              <ListItemButton component={NavLink} to={`/${item.text.toLowerCase()}`} className="nav-link" activeClassName="active">
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          <ListItem disablePadding>
+            <ListItemButton component={NavLink} to="/home" className="nav-link" activeClassName="active">
+              <ListItemIcon>
+                <HomeIcon sx={{ color: 'white' }} />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton component={NavLink} to="/login" className="nav-link" activeClassName="active">
+              <ListItemIcon>
+                <LoginIcon sx={{ color: 'white' }} />
+              </ListItemIcon>
+              <ListItemText primary="Login" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton component={NavLink} to="/signup" className="nav-link" activeClassName="active">
+              <ListItemIcon>
+                <PersonAddIcon sx={{ color: 'white' }} />
+              </ListItemIcon>
+              <ListItemText primary="Signup" />
+            </ListItemButton>
+          </ListItem>
         </List>
-        <Box sx={{ flexGrow: 1 }} /> {/* This will push the disconnect button to the bottom */}
+        <Box sx={{ flexGrow: 1 }} />
         <List className="nav-list">
-          <ListItem key="Disconnect" disablePadding>
+          <ListItem disablePadding>
             <ListItemButton component={NavLink} to="/disconnect" className="nav-link" activeClassName="active">
               <ListItemIcon>
                 <LogoutIcon sx={{ color: 'white' }} />
@@ -72,7 +84,6 @@ const Navbar = () => {
         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
       >
         <Toolbar />
-        
       </Box>
     </Box>
   );
