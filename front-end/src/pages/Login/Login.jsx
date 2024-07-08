@@ -1,8 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -10,51 +8,38 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Login.css';
 import '../../styles/global.css';
-
-const validationSchema = Yup.object().shape({
-  username: Yup.string().required('Username is required'),
-  password: Yup.string().required('Password is required'),
-});
+import loginValidationSchema from '../../validation/loginValidationSchema';
 
 const SignIn = () => {
   const navigate = useNavigate();
-
-  const mutation = useMutation(async (values) => {
-    const response = await fetch('http://localhost:8000/api/auth/login/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    });
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
-    document.cookie = `token=${data.token}; path=/`;
-    return data;
-  });
-
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
     },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      mutation.mutate(values, {
-        onSuccess: (data) => {
-          console.log('Logged in:', data);
-          navigate('/home');
-        },
-        onError: (error) => {
-          console.error('Error:', error);
-        },
-      });
+    validationSchema: loginValidationSchema,
+    onSubmit: async (values) => {
+      try {
+        const response = await fetch('http://localhost:8000/api/auth/login/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        document.cookie = `token=${data.token}; path=/`;
+        console.log('Logged in:', data);
+        navigate('/home');
+      } catch (error) {
+        console.error('Error:', error);
+      }
     },
   });
 
@@ -67,9 +52,8 @@ const SignIn = () => {
       justifyContent="center"
       sx={{ minHeight: '100vh' }}
     >
-      <div className="container">
+      <Box className="container">
         <Container component="main" maxWidth="xs">
-          <CssBaseline />
           <Box className="box">
             <Typography component="h1" variant="h5">
               Login
@@ -130,7 +114,7 @@ const SignIn = () => {
             </form>
           </Box>
         </Container>
-      </div>
+      </Box>
     </Grid>
   );
 };
