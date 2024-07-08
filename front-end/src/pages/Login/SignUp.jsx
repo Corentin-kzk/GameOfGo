@@ -1,40 +1,17 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Login.css';
-
-const signUpValidationSchema = Yup.object().shape({
-    username: Yup.string().required('Username is required'),
-    email: Yup.string().email('Invalid email').required('Email is required'),
-    password: Yup.string().required('Password is required').min(8, 'Password must be at least 8 characters'),
-});
+import signUpValidationSchema from '../../validation/signUpValidationSchema';
 
 const SignUpComponent = () => {
   const navigate = useNavigate();
-
-  const mutation = useMutation(async (values) => {
-    const response = await fetch('http://localhost:8000/api/auth/register/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    });
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  });
 
   const formik = useFormik({
     initialValues: {
@@ -43,16 +20,24 @@ const SignUpComponent = () => {
       password: '',
     },
     validationSchema: signUpValidationSchema,
-    onSubmit: (values) => {
-      mutation.mutate(values, {
-        onSuccess: (data) => {
-          console.log('submitted:', data);
-          navigate('/home');
-        },
-        onError: (error) => {
-          console.error('Error:', error);
-        },
-      });
+    onSubmit: async (values) => {
+      try {
+        const response = await fetch('http://localhost:8000/api/auth/register/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log('submitted:', data);
+        navigate('/home');
+      } catch (error) {
+        console.error('Error:', error);
+      }
     },
   });
 
@@ -66,12 +51,11 @@ const SignUpComponent = () => {
       sx={{ minHeight: '100vh' }}
     >
       <Grid item xs={3}></Grid>
-      <div className="container">
+      <Box className="container">
         <Container
           component="main"
           maxWidth="xs"
         >
-          <CssBaseline />
           <Box
             sx={{
               marginTop: 2,
@@ -156,7 +140,7 @@ const SignUpComponent = () => {
             </form>
           </Box>
         </Container>
-      </div>
+      </Box>
       <Grid item xs={3}></Grid>
     </Grid>
   );
