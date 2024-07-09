@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleSignOut = () => {
     setIsConnected(false);
-    localStorage.removeItem("isConnected");
+    localStorage.removeItem('isConnected');
   };
 
   useEffect(() => {
