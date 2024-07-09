@@ -18,22 +18,17 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LogoutIcon from '@mui/icons-material/Logout';
 import './Navbar.css';
 
-const drawerWidth = 240;
-
 const Navbar = () => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar
         position="fixed"
-        className="app-bar"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
-      />
+        className="app-bar"/>
       <Drawer
         className="drawer"
         variant="permanent"
         anchor="left"
-        sx={{ width: drawerWidth, flexShrink: 0 }}
       >
         <Toolbar className='app-bar'>
           <Typography variant="h6" noWrap component="div">
