@@ -1,24 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
 import Homepage from "./pages/Home/Homepage";
-import Login from './pages/Login/Login';
-import SignUp from './pages/Login/SignUp';
-import Gamepage from './pages/Game/Gamepage';
-import reportWebVitals from './reportWebVitals';
-import Navbar from './components/Navbar/Navbar';
+import Login from "./pages/Login/Login";
+import SignUp from "./pages/Login/SignUp";
+import Gamepage from "./pages/Game/Gamepage";
+import reportWebVitals from "./reportWebVitals";
+import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { CssBaseline } from '@mui/material';
-import { AuthProvider } from './context/AuthContext';
-
-
+import { QueryClient, QueryClientProvider } from "react-query";
+import { CssBaseline } from "@mui/material";
+import { AuthProvider } from "./context/AuthContext";
 
 const queryClient = new QueryClient();
 
 const App = () => {
   const location = useLocation();
-  const hideNavbar = ['/login', '/signup'].includes(location.pathname)
+  const hideNavbar = ["/login", "/signup"].includes(location.pathname);
 
   return (
     <>
@@ -33,16 +31,16 @@ const App = () => {
   );
 };
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <AuthProvider>
-  <QueryClientProvider client={queryClient}>
-    <React.StrictMode>
-      <BrowserRouter>
-      <CssBaseline />
-        <App />
-      </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <React.StrictMode>
+        <BrowserRouter>
+          <CssBaseline />
+          <App />
+        </BrowserRouter>
       </React.StrictMode>
     </QueryClientProvider>
   </AuthProvider>

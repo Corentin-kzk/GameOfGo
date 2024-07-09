@@ -2,18 +2,18 @@
 
 const createHttpClient = () => {
   let cookie = null;
-  const baseURL = process.env.REACT_APP_BACKEND_URL
+  const baseURL = process.env.REACT_APP_BACKEND_URL;
   const headers = {
-        'Content-Type': 'application/json',
-  }
+    "Content-Type": "application/json"
+  };
 
-  console.log(baseURL)
+  console.log(baseURL);
   const request = async (endpoint, options = {}) => {
     // Ajoute le cookie à chaque requête si disponible
     if (cookie) {
       options.headers = {
         ...options.headers,
-        'Cookie': cookie
+        Cookie: cookie
       };
     }
 
@@ -26,11 +26,13 @@ const createHttpClient = () => {
       // Interception des erreurs HTTP
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.message}`);
+        throw new Error(
+          `HTTP error! Status: ${response.status}, Message: ${errorData.message}`
+        );
       }
 
       // Récupère le cookie de la réponse
-      const setCookieHeader = response.headers.get('Set-Cookie');
+      const setCookieHeader = response.headers.get("Set-Cookie");
       if (setCookieHeader) {
         cookie = setCookieHeader;
       }
@@ -39,29 +41,29 @@ const createHttpClient = () => {
       return await response.json();
     } catch (error) {
       // Gestion des erreurs
-      console.error('Request failed:', error.message);
+      console.error("Request failed:", error.message);
       throw error;
     }
   };
 
-  const get = (endpoint) => {
+  const get = endpoint => {
     return request(endpoint, {
-      method: 'GET',
+      method: "GET"
     });
   };
 
   const post = (endpoint, body) => {
     return request(endpoint, {
-      method: 'POST',
+      method: "POST",
       headers: headers,
-      body: JSON.stringify(body),
+      body: JSON.stringify(body)
     });
   };
 
   // Retourne les fonctions get et post pour l'utilisation
   return {
     get,
-    post,
+    post
   };
 };
 const httpClient = createHttpClient(process.env.REACT_APP_BASE_URL);

@@ -1,9 +1,9 @@
 .container {
   background: #f3f3f0;
-  backdrop-filter: blur( 14px );
-  -webkit-backdrop-filter: blur( 14px );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.325);
+  border: 1px solid rgba(255, 255, 255, 0.325);
   padding-bottom: 30px;
 }
 
