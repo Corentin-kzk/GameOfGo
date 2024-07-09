@@ -11,7 +11,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { CssBaseline } from '@mui/material';
 import { AuthProvider } from './context/AuthContext';
-
+import { getCookie } from './services/generics/generics';
 
 
 const queryClient = new QueryClient();
@@ -19,14 +19,16 @@ const queryClient = new QueryClient();
 const App = () => {
   const location = useLocation();
   const hideNavbar = ['/login', '/signup'].includes(location.pathname)
+  const isLogged = getCookie('token');
   return (
     <>
-      {!hideNavbar && <Navbar />}
+      {(isLogged || !hideNavbar) && <Navbar />}
       <Routes>
+        {isLogged ? <Route path="/" element={<Homepage />} /> : <Route path="/" element={<Login />} />}
         <Route path="/home" element={<Homepage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
         <Route path="/play" element={<Gamepage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
       </Routes>
     </>
   );

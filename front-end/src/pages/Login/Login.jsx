@@ -10,14 +10,24 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Login.css';
-import '../../styles/global.css';
 import loginValidationSchema from '../../validation/loginValidationSchema';
+import {useMutation} from "react-query";
+import {signIn} from "../../services/api/signIn";
 import { AuthContext } from '../../context/AuthContext';
 
-const SignIn = () => {
-  const navigate = useNavigate();
-  const { handleSignIn } = useContext(AuthContext);
-
+const SignIn = options => {
+    const navigate = useNavigate();
+    const { handleSignIn } = useContext(AuthContext);
+   const mutation = useMutation(
+       signIn, {
+    onSuccess: (data) => {
+        handleSignIn();
+      navigate('/home');
+    },
+    onError: (error) => {
+      console.error('Error submitting form:', error);
+    },
+  });
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -25,25 +35,7 @@ const SignIn = () => {
     },
     validationSchema: loginValidationSchema,
     onSubmit: async (values) => {
-      try {
-        const response = await fetch('http://localhost:8000/api/auth/login/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(values),
-        });
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        document.cookie = `token=${data.token}; path=/`;
-        console.log('Logged in:', data);
-        handleSignIn();
-        navigate('/home');
-      } catch (error) {
-        console.error('Error:', error);
-      }
+      mutation.mutate(values)
     },
   });
 
