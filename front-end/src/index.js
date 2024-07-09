@@ -19,6 +19,7 @@ const queryClient = new QueryClient();
 const App = () => {
   const location = useLocation();
   const hideNavbar = ['/login', '/signup'].includes(location.pathname)
+
   return (
     <>
       {!hideNavbar && <Navbar />}
