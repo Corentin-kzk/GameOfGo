@@ -1,13 +1,11 @@
 from rest_framework import generics, pagination
 from rest_framework.exceptions import NotFound
 from rest_framework.pagination import PageNumberPagination
-from .models import Difficulty, Data, UserTsumego
-from .serializers import DifficultySerializer, DataSerializer, GameSerializer
+from .models import UserTsumego
+from .serializers import GameSerializer
 from .models import Difficulty, Data
 from .serializers import DifficultySerializer, DataSerializer
 from django.db.models import Func
-from drf_yasg.utils import swagger_auto_schema
-from drf_yasg import openapi
 
 class Random(Func):
     function = 'RANDOM'

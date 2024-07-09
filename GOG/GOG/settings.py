@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'authapp',
-    'drf_yasg',
     'GOG',
     'tsumego',
     'corsheaders'
@@ -54,13 +53,6 @@ INSTALLED_APPS = [
 
 APPEND_SLASH = False
 
-SWAGGER_SETTINGS = {
-    'SECURITY_DEFINITIONS': {
-        'Basic': {
-            'type': 'basic'
-        }
-    }
-}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
