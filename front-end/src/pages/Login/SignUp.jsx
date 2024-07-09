@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useFormik } from "formik";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -9,9 +9,24 @@ import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Login.css";
 import signUpValidationSchema from "../../validation/signUpValidationSchema";
+import {useMutation} from "react-query";
+import {signUp} from "../../services/api/auth";
+import {AuthContext} from "../../context/AuthContext";
 
 const SignUpComponent = () => {
   const navigate = useNavigate();
+  const { handleSignIn } = useContext(AuthContext);
+
+  const mutation = useMutation(
+       signUp, {
+    onSuccess: (data) => {
+        handleSignIn(data?.token);
+        navigate('/home');
+    },
+    onError: (error) => {
+      console.error('Error submitting form:', error);
+    },
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -20,29 +35,9 @@ const SignUpComponent = () => {
       password: ""
     },
     validationSchema: signUpValidationSchema,
-    onSubmit: async values => {
-      try {
-        const response = await fetch(
-          "http://localhost:8000/api/auth/register/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(values)
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        console.log("submitted:", data);
-        navigate("/home");
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-  });
+    onSubmit: (values) => {
+      mutation.mutate(values)
+    }});
 
   return (
     <Grid
