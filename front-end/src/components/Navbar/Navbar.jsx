@@ -19,14 +19,21 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LogoutIcon from '@mui/icons-material/Logout';
 import './Navbar.css';
 
+const drawerWidth = 200;
+
 const Navbar = () => {
     const { isConnected, handleSignOut } = React.useContext(AuthContext);
   
     return (
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="fixed" className="app-bar" />
-        <Drawer className="drawer" variant="permanent" anchor="left">
+        <AppBar position="fixed" className="app-bar" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} />
+        <Drawer
+          className="drawer"
+          variant="permanent"
+          anchor="left"
+          sx={{ width: drawerWidth, flexShrink: 0, '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box' } }}
+        >
           <Toolbar className='app-bar'>
             <Typography variant="h6" noWrap component="div">
               Tsumego
