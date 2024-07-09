@@ -5,6 +5,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from .serializers import UserSerializer, RegisterSerializer
 
 class RegisterAPI(generics.GenericAPIView):
+    permission_classes = [permissions.AllowAny]
     serializer_class = RegisterSerializer
 
     def post(self, request, *args, **kwargs):
@@ -19,6 +20,8 @@ class RegisterAPI(generics.GenericAPIView):
         })
 
 class LoginAPI(ObtainAuthToken):
+    permission_classes = [permissions.AllowAny]
+
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
