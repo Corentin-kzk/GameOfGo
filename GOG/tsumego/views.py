@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, pagination
 from rest_framework.exceptions import NotFound
 from rest_framework.pagination import PageNumberPagination
 from .models import Difficulty, Data, UserTsumego
@@ -37,6 +37,7 @@ class DataRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 
 class DataRandomRetrieve(generics.RetrieveAPIView):
     serializer_class = DataSerializer
+    pagination_class = pagination.PageNumberPagination
 
     def get_queryset(self):
         queryset = Data.objects.all()
@@ -48,18 +49,6 @@ class DataRandomRetrieve(generics.RetrieveAPIView):
 
         return queryset.order_by(Random())
 
-    @swagger_auto_schema(
-        operation_description="Get a random data object tèiygkhjgvutk,jy",
-        manual_parameters=[
-            openapi.Parameter(
-                'difficulty',
-                in_=openapi.IN_QUERY,
-                description="Filter by difficulty (optional)",
-                type=openapi.TYPE_STRING,
-                required=False
-            ),
-        ],
-    )
     def get_object(self):
         queryset = self.get_queryset()
 
@@ -85,6 +74,7 @@ class GameRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 
 class GameByUser(generics.ListAPIView):
     serializer_class = GameSerializer
+    pagination_class = pagination.PageNumberPagination
 
     def get_queryset(self):
         user_id = self.kwargs['user_id']

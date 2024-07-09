@@ -1,19 +1,18 @@
 // createHttpClient.js
 
 const createHttpClient = () => {
-  let cookie = null;
+
   const baseURL = process.env.REACT_APP_BACKEND_URL;
   const headers = {
-    "Content-Type": "application/json"
-  };
+        'Content-Type': 'application/json',
+  }
 
-  console.log(baseURL);
   const request = async (endpoint, options = {}) => {
-    // Ajoute le cookie à chaque requête si disponible
-    if (cookie) {
+    let token = localStorage.getItem('isConnected') || null;
+    if (token) {
       options.headers = {
         ...options.headers,
-        Cookie: cookie
+        "Authorization": `Token ${token}`
       };
     }
 
@@ -25,16 +24,11 @@ const createHttpClient = () => {
 
       // Interception des erreurs HTTP
       if (!response.ok) {
+        if (response.status === 401) window.location.replace("/login");
         const errorData = await response.json();
         throw new Error(
           `HTTP error! Status: ${response.status}, Message: ${errorData.message}`
         );
-      }
-
-      // Récupère le cookie de la réponse
-      const setCookieHeader = response.headers.get("Set-Cookie");
-      if (setCookieHeader) {
-        cookie = setCookieHeader;
       }
 
       // Renvoie la réponse au format JSON
@@ -48,7 +42,8 @@ const createHttpClient = () => {
 
   const get = endpoint => {
     return request(endpoint, {
-      method: "GET"
+      method: "GET",
+      headers: headers,
     });
   };
 

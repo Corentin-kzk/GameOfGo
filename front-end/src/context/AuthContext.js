@@ -1,15 +1,15 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect } from 'react';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isConnected, setIsConnected] = useState(() => {
-    return JSON.parse(localStorage.getItem("isConnected")) || false;
+    return !!localStorage.getItem('isConnected');
   });
 
-  const handleSignIn = () => {
+  const handleSignIn = (token) => {
     setIsConnected(true);
-    localStorage.setItem("isConnected", true);
+    localStorage.setItem('isConnected', token);
   };
 
   const handleSignOut = () => {
@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const storedIsConnected = JSON.parse(localStorage.getItem("isConnected"));
+    const storedIsConnected = !!localStorage.getItem('isConnected');
     if (storedIsConnected) {
       setIsConnected(storedIsConnected);
     }
