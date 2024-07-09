@@ -10,6 +10,8 @@ import Navbar from './components/Navbar/Navbar';
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { CssBaseline } from '@mui/material';
+import { AuthProvider } from './context/AuthContext';
+
 
 
 const queryClient = new QueryClient();
@@ -33,14 +35,16 @@ const App = () => {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
+  <AuthProvider>
   <QueryClientProvider client={queryClient}>
     <React.StrictMode>
       <BrowserRouter>
       <CssBaseline />
         <App />
       </BrowserRouter>
-    </React.StrictMode>
-  </QueryClientProvider>
+      </React.StrictMode>
+    </QueryClientProvider>
+  </AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
