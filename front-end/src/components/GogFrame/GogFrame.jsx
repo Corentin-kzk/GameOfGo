@@ -1,22 +1,30 @@
 import './style.css';
 import { getVertex } from '../../services/board/initBoard';
 import { whiteMove, blackMove } from '../../services/board/playersActions';
-import {useEffect, useState} from 'react';
+import { useState} from 'react';
 import { loadProblem, resolveProblem } from '../../services/board/solving';
-import {useQuery} from "react-query";
-import {getTsumego} from "../../services/api/tsumego";
+import {isError, useQuery} from "react-query";
+import {getTsumegoById} from "../../services/api/tsumego";
 import Board from '@sabaki/go-board'
+import {useParams} from "react-router-dom";
 
 const GogFrame = () => {
-    const {data, isSuccess, isLoading, isFetched} = useQuery('tsumego', getTsumego, {
-        refetchOnMount: true,
-        refetchOnWindowFocus: true
-    })
+    let { id } = useParams();
     const [board, setBoard] = useState();
+    const {data, isSuccess, isLoading, isError } = useQuery(
+        ['tsumego', id],
+        () => getTsumegoById(id),
+        {
+            onSuccess: (data) => {
+                console.log(data)
+                setBoard(loadProblem(data.board_size, data.black_stones, data.white_stones));
+            },
+            enabled: !!id,
+        }
+    );
 
-    useEffect(() => {
-        setBoard(loadProblem(data.board_size, data.black_stones, data.white_stones))
-    }, [isSuccess]);
+    console.log(data)
+
 
     function handleBoard(board, vertex) {
         //Check if the case is already filled with a token. If so, stop re-render to prevent the player from changing the token.
@@ -42,7 +50,7 @@ const GogFrame = () => {
 
     return (
         <>
-            {isSuccess && isFetched && <div
+            {isSuccess && !!data?.id &&<div
                 style={{border: '1px solid black', display: 'flex', flexDirection: 'column', width: 'fit-content'}}>
                 {
                     board.signMap.map((row, i) => (
@@ -60,7 +68,12 @@ const GogFrame = () => {
                     ))
                 }
             </div>}
-                        {!isSuccess && !isFetched && <div
+             {isLoading && <div
+                style={{border: '1px solid black', display: 'flex', flexDirection: 'column', width: 'fit-content'}}>
+                            Loading
+                        </div>
+                        }
+                        {isError && <div
                 style={{border: '1px solid black', display: 'flex', flexDirection: 'column', width: 'fit-content'}}>
                             Error
                         </div>

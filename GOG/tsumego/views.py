@@ -34,7 +34,6 @@ class DataRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Data.objects.all()
     serializer_class = DataSerializer
 
-
 class DataRandomRetrieve(generics.RetrieveAPIView):
     serializer_class = DataSerializer
     pagination_class = pagination.PageNumberPagination

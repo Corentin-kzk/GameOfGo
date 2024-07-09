@@ -32,6 +32,7 @@ const App = () => {
         <Route path="/play" element={<Gamepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/play/:id" element={<Gamepage />} />
       </Routes>
     </>
   );
