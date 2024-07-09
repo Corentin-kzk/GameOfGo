@@ -1,31 +1,32 @@
-import React, { useContext } from "react";
-import { useFormik } from "formik";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { useNavigate } from "react-router-dom";
-import "../../styles/Login.css";
-import loginValidationSchema from "../../validation/loginValidationSchema";
-import { useMutation } from "react-query";
-import { signIn } from "../../services/api/signIn";
-import { AuthContext } from "../../context/AuthContext";
+import React, { useContext } from 'react';
+import { useFormik } from 'formik';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { useNavigate } from 'react-router-dom';
+import '../../styles/Login.css';
+import loginValidationSchema from '../../validation/loginValidationSchema';
+import {useMutation} from "react-query";
+import {signIn} from "../../services/api/auth";
+import { AuthContext } from '../../context/AuthContext';
 
 const SignIn = options => {
-  const navigate = useNavigate();
-  const { handleSignIn } = useContext(AuthContext);
-  const mutation = useMutation(signIn, {
-    onSuccess: data => {
-      handleSignIn();
-      navigate("/home");
+    const navigate = useNavigate();
+    const { handleSignIn } = useContext(AuthContext);
+   const mutation = useMutation(
+       signIn, {
+    onSuccess: (data) => {
+        handleSignIn(data?.token);
+        navigate('/home');
     },
-    onError: error => {
-      console.error("Error submitting form:", error);
-    }
+    onError: (error) => {
+      console.error('Error submitting form:', error);
+    },
   });
   const formik = useFormik({
     initialValues: {
