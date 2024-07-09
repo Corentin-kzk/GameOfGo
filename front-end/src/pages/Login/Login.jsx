@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useFormik } from 'formik';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -12,9 +12,12 @@ import { useNavigate } from 'react-router-dom';
 import '../../styles/Login.css';
 import '../../styles/global.css';
 import loginValidationSchema from '../../validation/loginValidationSchema';
+import { AuthContext } from '../../context/AuthContext';
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { handleSignIn } = useContext(AuthContext);
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -36,6 +39,7 @@ const SignIn = () => {
         const data = await response.json();
         document.cookie = `token=${data.token}; path=/`;
         console.log('Logged in:', data);
+        handleSignIn();
         navigate('/home');
       } catch (error) {
         console.error('Error:', error);
