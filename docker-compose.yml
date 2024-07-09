@@ -53,12 +53,14 @@ services:
       - postgres-compose-network
     depends_on:
       - db
-#
+
 #  frontend:
 #    build:
 #      context: ./front-end/
 #      dockerfile: Dockerfile
 #    container_name: frontend
+#    environment:
+#      - REACT_APP_BACKEND_URL=http://backend
 #    ports:
 #      - "3000:3000"
 
