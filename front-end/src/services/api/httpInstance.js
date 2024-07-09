@@ -1,3 +1,5 @@
+// createHttpClient.js
+
 const createHttpClient = () => {
 
   const baseURL = process.env.REACT_APP_BACKEND_URL;
@@ -5,7 +7,6 @@ const createHttpClient = () => {
         'Content-Type': 'application/json',
   }
 
-  console.log(baseURL);
   const request = async (endpoint, options = {}) => {
     let token = localStorage.getItem('isConnected') || null;
     if (token) {
