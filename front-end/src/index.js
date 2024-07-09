@@ -9,19 +9,19 @@ import reportWebVitals from './reportWebVitals';
 import Navbar from './components/Navbar/Navbar';
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { CssBaseline } from '@mui/material';
+
 
 const queryClient = new QueryClient();
 
 const App = () => {
   const location = useLocation();
   const hideNavbar = ['/login', '/signup'].includes(location.pathname)
-
   return (
     <>
       {!hideNavbar && <Navbar />}
       <Routes>
         <Route path="/home" element={<Homepage />} />
-        <Route path="/test" element={<p>Test</p>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/play" element={<Gamepage />} />
@@ -36,6 +36,7 @@ root.render(
   <QueryClientProvider client={queryClient}>
     <React.StrictMode>
       <BrowserRouter>
+      <CssBaseline />
         <App />
       </BrowserRouter>
     </React.StrictMode>
