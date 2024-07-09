@@ -1,61 +1,61 @@
-.drawer .MuiDrawer-paper  {
-    width: 200px;
-    box-sizing: border-box;
-    background-color: #292b30;
-    color: #f3f3f0;
+.drawer .MuiDrawer-paper {
+  width: 200px;
+  box-sizing: border-box;
+  background-color: #292b30;
+  color: #f3f3f0;
 }
 
 .MuiDivider-root {
-    background-color: #93897c;
+  background-color: #93897c;
 }
 
 .app-bar {
-    background-color: #292b30;
+  background-color: #292b30;
 }
 
 nav ul {
-    padding: 0;
-    width: 100%;
-    display: flex;
-    list-style: none;
-    justify-content: space-between;
-    align-items: center;
-    margin: 1rem;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem;
 }
 
 nav ul :first-child {
-    display: flex;
+  display: flex;
 }
 
 a {
-    padding: 10px;
-    color: white;
-    text-decoration: none;
-    background-color: gray;
-    border-radius: 5px;
-    margin: 0 5px;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+  background-color: gray;
+  border-radius: 5px;
+  margin: 0 5px;
 }
 a:hover {
-    background-color: #555;
+  background-color: #555;
 }
 
 .nav-link {
-    padding: 10px;
-    color: white;
-    text-decoration: none;
-    background-color: gray;
-    border-radius: 5px;
-    margin: 0 5px;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+  background-color: gray;
+  border-radius: 5px;
+  margin: 0 5px;
 }
 
 .nav-link:hover {
-    color: #93897c;
+  color: #93897c;
 }
 
 .nav-link.active {
-    color: #93897c; 
+  color: #93897c;
 }
 
 .nav-link:active {
-    color: #93897c;
+  color: #93897c;
 }
