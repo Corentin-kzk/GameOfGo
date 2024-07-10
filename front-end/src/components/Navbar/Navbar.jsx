@@ -14,6 +14,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
+import PersonIcon from '@mui/icons-material/Person';
 import LoginIcon from "@mui/icons-material/Login";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -98,7 +99,7 @@ const Navbar = () => {
               activeClassName="active"
             >
               <ListItemIcon>
-                <HomeIcon sx={{ color: "white" }} />
+                <PersonIcon sx={{ color: "white" }} />
               </ListItemIcon>
               <ListItemText primary="Profile" />
             </ListItemButton>
