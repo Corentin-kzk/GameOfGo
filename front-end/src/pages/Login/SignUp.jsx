@@ -17,10 +17,11 @@ const SignUpComponent = () => {
   const navigate = useNavigate();
   const { handleSignIn } = useContext(AuthContext);
 
-  const mutation = useMutation(signUp, {
-    onSuccess: data => {
-      handleSignIn(data?.token);
-      navigate("/home");
+  const mutation = useMutation(
+       signUp, {
+    onSuccess: (data) => {
+        handleSignIn(data?.token, data?.user);
+        navigate('/home');
     },
     onError: error => {
       console.error("Error submitting form:", error);
