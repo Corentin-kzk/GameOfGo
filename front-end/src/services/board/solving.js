@@ -1,7 +1,7 @@
-import Board from '@sabaki/go-board'
+import Board from "@sabaki/go-board";
 export function loadProblem(size, blackStones, whiteStones) {
-    const boardTable = new Array(size).fill(0).map(() => new Array(size).fill(0));
-    let board = new Board(boardTable);
+  const boardTable = new Array(size).fill(0).map(() => new Array(size).fill(0));
+  let board = new Board(boardTable);
 
   blackStones.forEach(stone => board.set(stone, -1));
   whiteStones.forEach(stone => board.set(stone, 1));
