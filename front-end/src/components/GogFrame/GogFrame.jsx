@@ -1,17 +1,19 @@
 import './style.css';
 import { getVertex } from '../../services/board/initBoard';
 import { whiteMove, blackMove } from '../../services/board/playersActions';
-import { useState} from 'react';
+import { useState } from 'react';
 import { loadProblem, resolveProblem } from '../../services/board/solving';
-import {isError, useQuery} from "react-query";
-import {getTsumegoById} from "../../services/api/tsumego";
+import { useQuery } from "react-query";
+import { getTsumego, getTsumegoById } from "../../services/api/tsumego";
 import Board from '@sabaki/go-board'
-import {useParams} from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 const GogFrame = () => {
     let { id } = useParams();
     const [board, setBoard] = useState();
-    const {data, isSuccess, isLoading, isError } = useQuery(
+    const [tsumegoList, setTsumegoList] = useState();
+
+    const { data, isSuccess, isLoading, isError } = useQuery(
         ['tsumego', id],
         () => getTsumegoById(id),
         {
@@ -23,8 +25,18 @@ const GogFrame = () => {
         }
     );
 
-    console.log(data)
-
+    useQuery(
+        ['tsumegoList'],
+        () => getTsumego(),
+        {
+            onSuccess: (data) => {
+                console.log(data)
+                setTsumegoList(data);
+            },
+            enabled: id === undefined,
+        }
+    );
+    console.log(tsumegoList);
 
     function handleBoard(board, vertex) {
         //Check if the case is already filled with a token. If so, stop re-render to prevent the player from changing the token.
@@ -33,25 +45,31 @@ const GogFrame = () => {
             return;
         }
 
-    //Verify if the current Tsumego require the token to be black of white to complete the puzzle.
-    if (data.SOL[0][0] === "B") {
-      const table = blackMove(board, vertex);
-      setBoard(new Board(table.signMap));
-    } else {
-      const table = whiteMove(board, vertex);
-      setBoard(new Board(table.signMap));
+        //Verify if the current Tsumego require the token to be black of white to complete the puzzle.
+        if (data.SOL[0][0] === "B") {
+            const table = blackMove(board, vertex);
+            setBoard(new Board(table.signMap));
+        } else {
+            const table = whiteMove(board, vertex);
+            setBoard(new Board(table.signMap));
+        }
+
+        //Finally, if the token is placed in the correct position, the player wins the game. Else, it display an error message.
+        resolveProblem(data.SOL, vertex) === true
+            ? console.log("Correct")
+            : console.log("Incorrect");
     }
 
-    //Finally, if the token is placed in the correct position, the player wins the game. Else, it display an error message.
-    resolveProblem(data.SOL, vertex) === true
-      ? console.log("Correct")
-      : console.log("Incorrect");
-  }
+    function handleNext() {
+        fetch(tsumegoList.next, {
+            method: 'GET',
+        }).then((response) => console.log(response.json()))
+    }
 
     return (
         <>
-            {isSuccess && !!data?.id &&<div
-                style={{border: '1px solid black', display: 'flex', flexDirection: 'column', width: 'fit-content'}}>
+            {isSuccess && !!data?.id && <div
+                style={{ border: '1px solid black', display: 'flex', flexDirection: 'column', width: 'fit-content' }}>
                 {
                     board.signMap.map((row, i) => (
                         <div className='row' key={i}>
@@ -60,7 +78,7 @@ const GogFrame = () => {
                                     <button id={i + " " + j} onClick={(e) => handleBoard(board, getVertex(i, j))}>
                                         {cell === 0 ? "" :
                                             <img src={cell === 1 ? "/imgs/whitePawn.svg" : "/imgs/blackPawn.svg"}
-                                                 alt="Pawn"/>}
+                                                alt="Pawn" />}
                                     </button>
                                 </div>
                             ))}
@@ -68,17 +86,49 @@ const GogFrame = () => {
                     ))
                 }
             </div>}
-             {isLoading && <div
-                style={{border: '1px solid black', display: 'flex', flexDirection: 'column', width: 'fit-content'}}>
-                            Loading
-                        </div>
-                        }
-                        {isError && <div
-                style={{border: '1px solid black', display: 'flex', flexDirection: 'column', width: 'fit-content'}}>
-                            Error
-                        </div>
-                        }
+            {isLoading && <div
+                style={{ border: '1px solid black', display: 'flex', flexDirection: 'column', width: 'fit-content' }}>
+                Loading
+            </div>
+            }
+            {isError && <div
+                style={{ border: '1px solid black', display: 'flex', flexDirection: 'column', width: 'fit-content' }}>
+                Error
+            </div>
+            }
 
+            {id === undefined &&
+                <div>
+                    <h1>Choose a Tsumego</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem</th>
+                                <th>Difficulty</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tsumegoList?.results.map((tsumego) => (
+                            <tr>
+                                <td>
+                                    Problem n°{tsumego.id}
+                                </td>
+                                <td>
+                                    {tsumego.difficulty == 1 ? "Easy" : tsumego.difficulty == 2 ? "Medium" : "Difficult"}
+                                </td>
+                                <td>
+                                    <button onClick={() => <Navigate to={`/tsumego/${tsumego.id}`} />}>Jouer</button>
+                                </td>
+                            </tr>
+                            ))}
+                            <td>
+                                <button onClick={() => handleNext()}>Next</button>
+                            </td>
+                        </tbody>
+                    </table>
+                </div>
+            }
         </>
     )
 }
