@@ -89,6 +89,20 @@ const Navbar = () => {
               </ListItem>
             </>
           )}
+          {isConnected && (
+            <ListItem disablePadding>
+            <ListItemButton
+              component={NavLink}
+              to="/user"
+              className="nav-link"
+              activeClassName="active"
+            >
+              <ListItemIcon>
+                <HomeIcon sx={{ color: "white" }} />
+              </ListItemIcon>
+              <ListItemText primary="Profile" />
+            </ListItemButton>
+          </ListItem>)}
         </List>
         <Box sx={{ flexGrow: 1 }} />
         {isConnected && (

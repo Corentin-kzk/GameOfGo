@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { CssBaseline } from "@mui/material";
 import { AuthProvider } from "./context/AuthContext";
 import { getCookie } from "./services/generics/generics";
+import User from "./pages/User/User";
 
 export const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/play/:id" element={<Gamepage />} />
+        <Route path="/user" element={<User />} />
       </Routes>
     </>
   );

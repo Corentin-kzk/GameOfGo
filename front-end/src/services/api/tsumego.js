@@ -9,6 +9,10 @@ export const getTsumegoById = async id => {
   return await httpInstance.get(`tsumego/${id}/`);
 };
 
-export const postTsumegoResutl = async values => {
-  return await httpInstance.post(`tsumego/games/`, values);
-};
+export const postTsumegoResutl = async (values) => {
+   return await httpInstance.post(`tsumego/games/`, values)
+}
+
+export const getTsumegoByUser = async (id) => {
+   return await httpInstance.get(`tsumego/games/user/${id}/`)
+}
