@@ -20,10 +20,9 @@ class GameSerializer(serializers.ModelSerializer):
         fields = ['id', 'user', 'tsumego', 'solved', 'solved_date']
 
     def validate(self, data):
-        user = data.get('user')
-        tsumego = data.get('tsumego')
+        solved_date = data.get('solved_date')
 
-        if UserTsumego.objects.filter(user=user, tsumego=tsumego).exists():
+        if UserTsumego.objects.filter(solved_date=solved_date).exists():
             raise serializers.ValidationError("User already has a game for this tsumego.")
 
         return data

@@ -21,7 +21,7 @@ const SignIn = options => {
    const mutation = useMutation(
        signIn, {
     onSuccess: (data) => {
-        handleSignIn(data?.token);
+        handleSignIn(data?.token, data?.user);
         navigate('/home');
     },
     onError: (error) => {
