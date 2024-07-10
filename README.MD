@@ -73,3 +73,9 @@ Configurez `GITHUB_ID=""` dans les environnements.
 ```bash
 docker exec -it django-backend python manage.py insert_tsumego
 ```
+
+### Créer un superUser
+
+```bash
+docker exec -it django-backend python manage.py createsuperuser 
+```
