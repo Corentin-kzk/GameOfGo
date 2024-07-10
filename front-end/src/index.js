@@ -13,7 +13,7 @@ import { CssBaseline } from "@mui/material";
 import { AuthProvider } from "./context/AuthContext";
 import { getCookie } from "./services/generics/generics";
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 const App = () => {
   const location = useLocation();

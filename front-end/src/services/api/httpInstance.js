@@ -1,18 +1,17 @@
 // createHttpClient.js
 
 const createHttpClient = () => {
-
   const baseURL = process.env.REACT_APP_BACKEND_URL;
   const headers = {
-        'Content-Type': 'application/json',
-  }
+    "Content-Type": "application/json"
+  };
 
   const request = async (endpoint, options = {}) => {
-    let token = localStorage.getItem('isConnected') || null;
+    let token = localStorage.getItem("isConnected") || null;
     if (token) {
       options.headers = {
         ...options.headers,
-        "Authorization": `Token ${token}`
+        Authorization: `Token ${token}`
       };
     }
 
@@ -43,7 +42,7 @@ const createHttpClient = () => {
   const get = endpoint => {
     return request(endpoint, {
       method: "GET",
-      headers: headers,
+      headers: headers
     });
   };
 
