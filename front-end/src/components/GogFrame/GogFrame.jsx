@@ -1,7 +1,7 @@
 import "./style.css";
 import { getVertex } from "../../services/board/initBoard";
 import { whiteMove, blackMove } from "../../services/board/playersActions";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { loadProblem, resolveProblem } from "../../services/board/solving";
 import { useMutation, useQuery } from "react-query";
 import {
@@ -10,11 +10,14 @@ import {
   postTsumegoResutl
 } from "../../services/api/tsumego";
 import Board from "@sabaki/go-board";
-import { Navigate, redirect, useNavigate, useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { boolean } from "yup";
+
 import { Alert, Snackbar } from "@mui/material";
 import {queryClient} from "../../index";
+import './style.css';
+
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 
 const GogFrame = () => {
   let { id } = useParams();
@@ -160,48 +163,48 @@ const GogFrame = () => {
         </div>
       )}
 
-      {id === undefined && (
-        <div>
-          <h1>Choose a Tsumego</h1>
-          <table>
-            <thead>
-              <tr>
-                <th>Problem</th>
-                <th>Difficulty</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tsumegoList?.results.map(tsumego => (
-                <tr>
-                  <td>Problem n°{tsumego.id}</td>
-                  <td>
-                    {tsumego.difficulty == 1
-                      ? "Easy"
-                      : tsumego.difficulty == 2
-                        ? "Medium"
-                        : "Difficult"}
-                  </td>
-                  <td>
-                    <button onClick={() => navigate(`/play/${tsumego.id}`)}>
-                      Jouer
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {page >= 2 && (
-                <td>
-                  <button onClick={() => handlePrevious()}>Previous</button>
-                </td>
-              )}
-              <td>
-                <button onClick={() => handleNext()}>Next</button>
-              </td>
-            </tbody>
-          </table>
-        </div>
-      )}
-      <Snackbar open={snackBarStatus} autoHideDuration={6000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+            {id === undefined &&
+                <div>
+                    <h1>Choose a Tsumego</h1>
+                    <TableContainer component={Paper}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Problem</TableCell>
+                                    <TableCell>Difficulty</TableCell>
+                                    <TableCell>Action</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {tsumegoList?.results.map((tsumego) => (
+                                    <TableRow key={tsumego.id}>
+                                        <TableCell>Problem n°{tsumego.id}</TableCell>
+                                        <TableCell>
+                                            {tsumego.difficulty === 1 ? "Easy" : tsumego.difficulty === 2 ? "Medium" : "Difficult"}
+                                        </TableCell>
+                                        <TableCell>
+                                            <Button variant="contained" color="success" onClick={() => navigate(`/play/${tsumego.id}`)}>Play</Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                                {page >= 2 &&
+                                    <TableRow>
+                                        <TableCell colSpan={3}>
+                                            <Button variant="contained" onClick={handlePrevious}>Previous</Button>
+                                        </TableCell>
+                                    </TableRow>
+                                }
+                                <TableRow>
+                                    <TableCell colSpan={3}>
+                                        <Button variant="contained" onClick={handleNext}>Next</Button>
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </div>
+            }
+             <Snackbar open={snackBarStatus} autoHideDuration={6000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <Alert
           onClose={() => setSnackBarStatus(false)}
           severity={status ? "success" : "error"}
@@ -211,8 +214,8 @@ const GogFrame = () => {
           <div>{status ? "Success" : "Fail"}</div>
         </Alert>
       </Snackbar>
-    </>
-  );
-};
+        </>
+    )
+}
 
 export default GogFrame;
