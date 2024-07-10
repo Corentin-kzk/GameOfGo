@@ -1,5 +1,6 @@
 import React from "react";
 import "./Homepage.css";
+import Button from '@mui/material/Button';
 
 function Homepage() {
   return (
@@ -26,7 +27,13 @@ function Homepage() {
           </p>
         </div>
         <a href="/play">
-          <button>Start Game</button>
+          <Button
+            className="login-button"
+            variant="outlined"
+            style={{ backgroundColor: '#292b30', color: '#f3f3f0' }}
+          >
+            Start Game
+          </Button>
         </a>
       </div>
     </>

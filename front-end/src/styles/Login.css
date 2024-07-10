@@ -19,6 +19,11 @@
   color: #f3f3f0;
 }
 
+.container .login-button:hover {
+  background-color: #93897c;
+  color: #f3f3f0;
+}
+
 .container .signup {
   color: #292b30;
 }

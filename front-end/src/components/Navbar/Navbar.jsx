@@ -20,6 +20,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import "./Navbar.css";
 import { useMutation } from "react-query";
 import { signOut } from "../../services/api/auth";
+import loginIcon from '../../assets/tsumego-logo.png';
 
 const Navbar = () => {
   const { isConnected, handleSignOut } = React.useContext(AuthContext);
@@ -34,84 +35,72 @@ const Navbar = () => {
       console.error("Error submitting form:", error);
     }
   });
-  return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" className="app-bar" />
-      <Drawer className="drawer" variant="permanent" anchor="left">
-        <Toolbar className="app-bar">
-          <Typography variant="h6" noWrap component="div">
-            Tsumego
-          </Typography>
-        </Toolbar>
-        <Divider />
-        <List className="nav-list">
-          <ListItem disablePadding>
-            <ListItemButton
-              component={NavLink}
-              to="/home"
-              className="nav-link"
-              activeClassName="active"
-            >
-              <ListItemIcon>
-                <HomeIcon sx={{ color: "white" }} />
-              </ListItemIcon>
-              <ListItemText primary="Home" />
-            </ListItemButton>
-          </ListItem>
-          {!isConnected && (
-            <>
-              <ListItem disablePadding>
-                <ListItemButton
-                  component={NavLink}
-                  to="/login"
-                  className="nav-link"
-                  activeClassName="active"
-                >
-                  <ListItemIcon>
-                    <LoginIcon sx={{ color: "white" }} />
-                  </ListItemIcon>
-                  <ListItemText primary="Login" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton
-                  component={NavLink}
-                  to="/signup"
-                  className="nav-link"
-                  activeClassName="active"
-                >
-                  <ListItemIcon>
-                    <PersonAddIcon sx={{ color: "white" }} />
-                  </ListItemIcon>
-                  <ListItemText primary="Signup" />
-                </ListItemButton>
-              </ListItem>
-            </>
-          )}
-        </List>
-        <Box sx={{ flexGrow: 1 }} />
-        {isConnected && (
+    return (
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppBar position="fixed" className="app-bar" />
+        <Drawer className="drawer" variant="permanent" anchor="left">
+          <Toolbar className='app-bar'>
+          <Box display="flex" alignItems="center">
+              <Typography variant="h5" sx={{ mr: 1 }}>
+                  Tsumego
+              </Typography>
+              <img src={loginIcon} alt="Login Icon" style={{ height: '30px' }} />
+          </Box>
+          </Toolbar>
+          <Divider />
           <List className="nav-list">
             <ListItem disablePadding>
-              <ListItemButton
-                component={NavLink}
-                to="/home"
-                className="nav-link"
-                activeClassName="active"
-                onClick={() => signOutMutation.mutate()}
-              >
+              <ListItemButton component={NavLink} to="/home" className="nav-link" activeClassName="active">
                 <ListItemIcon>
-                  <LogoutIcon sx={{ color: "white" }} />
+                  <HomeIcon sx={{ color: 'white' }} />
                 </ListItemIcon>
-                <ListItemText primary="Disconnect" />
+                <ListItemText primary="Home" />
               </ListItemButton>
             </ListItem>
+            {!isConnected && (
+              <>
+                <ListItem disablePadding>
+                  <ListItemButton component={NavLink} to="/login" className="nav-link" activeClassName="active">
+                    <ListItemIcon>
+                      <LoginIcon sx={{ color: 'white' }} />
+                    </ListItemIcon>
+                    <ListItemText primary="Login" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton component={NavLink} to="/signup" className="nav-link" activeClassName="active">
+                    <ListItemIcon>
+                      <PersonAddIcon sx={{ color: 'white' }} />
+                    </ListItemIcon>
+                    <ListItemText primary="Signup" />
+                  </ListItemButton>
+                </ListItem>
+              </>
+            )}
           </List>
-        )}
-      </Drawer>
-    </Box>
-  );
-};
-
-export default Navbar;
+          <Box sx={{ flexGrow: 1 }} />
+          {isConnected && (
+            <List className="nav-list">
+              <ListItem disablePadding>
+                <ListItemButton
+                  component={NavLink}
+                  to="/home"
+                  className="nav-link"
+                  activeClassName="active"
+                  onClick={() => signOutMutation.mutate()}
+                >
+                  <ListItemIcon>
+                    <LogoutIcon sx={{ color: 'white' }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Disconnect" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          )}
+        </Drawer>
+      </Box>
+    );
+  };
+  
+  export default Navbar;

@@ -27,17 +27,17 @@ nav ul :first-child {
   display: flex;
 }
 
-a {
+/* a {
   padding: 10px;
   color: white;
   text-decoration: none;
   background-color: gray;
   border-radius: 5px;
   margin: 0 5px;
-}
-a:hover {
+} */
+/* a:hover {
   background-color: #555;
-}
+} */
 
 .nav-link {
   padding: 10px;
