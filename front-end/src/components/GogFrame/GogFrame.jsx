@@ -1,17 +1,22 @@
 import './style.css';
 import { getVertex } from '../../services/board/initBoard';
 import { whiteMove, blackMove } from '../../services/board/playersActions';
-import { useState } from 'react';
+import {useContext, useEffect, useState} from 'react';
 import { loadProblem, resolveProblem } from '../../services/board/solving';
-import { useQuery } from "react-query";
-import { getTsumego, getTsumegoById } from "../../services/api/tsumego";
+import {useMutation, useQuery} from "react-query";
+import {getTsumego, getTsumegoById, postTsumegoResutl} from "../../services/api/tsumego";
 import Board from '@sabaki/go-board'
-import { Navigate, useParams } from "react-router-dom";
+import {Navigate, redirect, useNavigate, useParams} from "react-router-dom";
+import {AuthContext} from "../../context/AuthContext";
 
 const GogFrame = () => {
     let { id } = useParams();
+    const { user } = useContext(AuthContext);
     const [board, setBoard] = useState();
-    const [tsumegoList, setTsumegoList] = useState();
+    const [page, setPage] = useState(1);
+    const [status, setStatus] = useState(null);
+    const navigate = useNavigate()
+
 
     const { data, isSuccess, isLoading, isError } = useQuery(
         ['tsumego', id],
@@ -25,20 +30,24 @@ const GogFrame = () => {
         }
     );
 
-    useQuery(
-        ['tsumegoList'],
-        () => getTsumego(),
+    const {data : tsumegoList} = useQuery(
+        ['tsumegoList', page],
+        () => getTsumego(page),
         {
-            onSuccess: (data) => {
-                console.log(data)
-                setTsumegoList(data);
-            },
             enabled: id === undefined,
         }
     );
-    console.log(tsumegoList);
 
+     const gameMutation = useMutation('gameResult',
+         postTsumegoResutl,
+         )
     function handleBoard(board, vertex) {
+        const formatResponse = (solution) => {
+            return JSON.parse(solution.replace(/'/g, '"'));
+        }
+
+        let sol = formatResponse(data.solution)
+
         //Check if the case is already filled with a token. If so, stop re-render to prevent the player from changing the token.
         if (board.get([vertex[0], vertex[1]]) !== 0) {
             console.log('Invalid move');
@@ -46,7 +55,7 @@ const GogFrame = () => {
         }
 
         //Verify if the current Tsumego require the token to be black of white to complete the puzzle.
-        if (data.SOL[0][0] === "B") {
+        if (sol[0][0] === "B") {
             const table = blackMove(board, vertex);
             setBoard(new Board(table.signMap));
         } else {
@@ -55,20 +64,32 @@ const GogFrame = () => {
         }
 
         //Finally, if the token is placed in the correct position, the player wins the game. Else, it display an error message.
-        resolveProblem(data.SOL, vertex) === true
-            ? console.log("Correct")
-            : console.log("Incorrect");
+       setStatus(resolveProblem(sol, vertex))
     }
 
-    function handleNext() {
-        fetch(tsumegoList.next, {
-            method: 'GET',
-        }).then((response) => console.log(response.json()))
+    useEffect(() => {
+        console.log(user)
+        const date = new Date(Date.now())
+        if (status !== null) gameMutation.mutate({
+            "user": user.id,
+            "tsumego": data?.id,
+            "solved": status,
+            "solved_date": date.toISOString()
+        })
+    }, [status, data?.id, user.id]);
+
+
+    const handleNext = () =>{
+        setPage(page + 1)
     }
+      const handlePrevious = () =>{
+        setPage(page - 1)
+    }
+
 
     return (
         <>
-            {isSuccess && !!data?.id && <div
+            {isSuccess && !!data?.id && id && <div
                 style={{ border: '1px solid black', display: 'flex', flexDirection: 'column', width: 'fit-content' }}>
                 {
                     board.signMap.map((row, i) => (
@@ -109,7 +130,7 @@ const GogFrame = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {tsumegoList?.results.map((tsumego) => (
+                        {tsumegoList?.results.map((tsumego) => (
                             <tr>
                                 <td>
                                     Problem n°{tsumego.id}
@@ -118,13 +139,18 @@ const GogFrame = () => {
                                     {tsumego.difficulty == 1 ? "Easy" : tsumego.difficulty == 2 ? "Medium" : "Difficult"}
                                 </td>
                                 <td>
-                                    <button onClick={() => <Navigate to={`/tsumego/${tsumego.id}`} />}>Jouer</button>
+                                    <button onClick={() => navigate(`/play/${tsumego.id}`)}>Jouer</button>
                                 </td>
                             </tr>
-                            ))}
+                        ))}
+                        {page >= 2 &&
                             <td>
-                                <button onClick={() => handleNext()}>Next</button>
+                                <button onClick={() => handlePrevious()}>Previous</button>
                             </td>
+                        }
+                        <td>
+                            <button onClick={() => handleNext()}>Next</button>
+                        </td>
                         </tbody>
                     </table>
                 </div>
